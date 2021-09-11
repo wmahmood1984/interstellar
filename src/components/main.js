@@ -64,7 +64,9 @@ export default function Main() {
 
        function  handleSubmit(e){
             e.preventDefault()
-            dispatch(Mint({quantity,value:quantity*Price, referror}))
+            if(referror == undefined ){window.alert("please enter the referror link")}
+            else{dispatch(Mint({quantity,value:quantity*Price, referror}))}
+            
             
        }
 
