@@ -18,7 +18,7 @@ export default function Main() {
       return result
       });
 
-      console.log("balance array",balanceArray)
+     
 
       const Active = useSelector((state)=>{
         return state.adoptReducer.Active;
@@ -27,6 +27,8 @@ export default function Main() {
       const Price = useSelector((state)=>{
         return state.adoptReducer.Price;
       });
+
+      console.log("Price",Price)
 
       const remaining = useSelector((state)=>{
         return state.adoptReducer.remaining;
@@ -62,10 +64,9 @@ export default function Main() {
        }
       
 
-       function  handleSubmit(e){
+       function handleSubmit(e){
             e.preventDefault()
-            if(referror == undefined ){window.alert("please enter the referror link")}
-            else{dispatch(Mint({quantity,value:quantity*Price, referror}))}
+         dispatch(Mint({quantity,value: quantity*Price}))
             
             
        }
@@ -90,9 +91,9 @@ export default function Main() {
                 <button onClick={handleConnect} className="ConnectButton">{address? `${address.slice(0,3)}...${address.slice(38,42)}` :"Connect MetaMask"}</button>
                 <div className="QtyPrice">
                     <div className= "QtyPriceBox" style={{fontSize:"18px"}}>
-                    My BNB balance :  {ethBalance && (ethBalance/1000000000000000000).toFixed(4)}
+                    My FTM balance :  {ethBalance && (ethBalance/1000000000000000000).toFixed(4)}
                     </div>
-                    <input className="referrorBox" value={referror} onChange={(e)=>{setReferror(e.target.value)} } type="text" placeholder="put referror address here"/>
+ 
                     <div className= "QtyPriceBox" style={{borderTop:"1px solid grey", borderBottom:"1px solid grey"}}>
                         <label>                    Qty  {' '}
                         <button style={{color:"white", backgroundImage: 'linear-gradient(180deg, black, pink)'}} onClick={()=>{if(quantity>=1){setQuantity(quantity-1)} }}> -</button>                            
@@ -110,8 +111,8 @@ export default function Main() {
                               }}>max</button><br/>
                       
                     </div>
-                    <div className= "QtyPriceBox">
-                    Total Value =  { (quantity*Price/1000000000000000000).toFixed(2)} BNB
+                    <div >
+                    Total Value =   { quantity * Price/1000000000000000000} FTM
                     </div>
 
                 </div>
@@ -121,18 +122,11 @@ export default function Main() {
             </div>
 
             <div className="Main-bottom">
-                <div className="BottomBox">
-                status
-                    <div style={{border:"2px solid black", width:"120px",height:"35px",position:"relative",left:"20px", marginTop:"10px", color:"red"}}>{Active? "Pre-Sale Closed" : "Pre-Sale Open"}</div>
-                </div>
-                <div className="BottomBox" style={{borderLeft:"1px solid grey",borderRight:"1px solid grey"}}>
+                
+                <div >
                 Price
 
                     <div style={{ width:"120px",height:"35px",position:"relative",left:"20px", marginTop:"10px"}}>{Price && (Price/10000000000000000000).toFixed(4)} Eth</div>
-                </div>
-                <div className="BottomBox">
-                remaining tokens you can buy
-                    <div style={{ width:"120px",height:"35px",position:"relative",left:"20px", marginTop:"10px", color:"red"}}>{remaining && (remaining/1000000000000000000).toFixed(2)   }</div>
                 </div>
             </div>
         </div>
